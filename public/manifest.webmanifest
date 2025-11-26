@@ -1,0 +1,90 @@
+{
+  "name": "ng-twa",
+  "description": "Awesome Angular TWA Store",
+  "short_name": "ng-twa",
+  "display": "standalone",
+  "scope": "./",
+  "start_url": "./",
+  "handle_links": "preferred",
+  "orientation": "portrait",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone"
+  ],
+  "icons": [
+    {
+      "src": "icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Lista de Deseos",
+      "short_name": "Deseos",
+      "url": "/wish-list",
+      "description": "Puede ver los deseos marcados",
+      "icons": [
+        {
+          "src": "/twa/shortcuts/list-wish/heart.png",
+          "sizes": "100x100"
+        }
+      ]
+    },
+    {
+      "name": "Carrito",
+      "short_name": "Carrito",
+      "url": "/shop-cart",
+      "description": "Puede visualizar su carrito de compras",
+      "icons": [
+        {
+          "src": "/twa/shortcuts/documents/order.png",
+          "sizes": "100x100"
+        }
+      ]
+    }
+  ]
+}

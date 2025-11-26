@@ -1,0 +1,9 @@
+import { PaginationOptions } from '@/core/interfaces';
+
+export const PAGINATION_DEFAULT: PaginationOptions = {
+  limit: 10,
+  skip: 0,
+  search: '',
+  category: '',
+  order: 'asc',
+};

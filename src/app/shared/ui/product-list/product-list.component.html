@@ -1,0 +1,36 @@
+<div
+  [class.hidden]="hideHeader()"
+  class="flex items-center justify-center px-4 py-3 border-b border-gray-200"
+>
+  <h2 class="text-lg font-semibold text-gray-900">Shopping Cart</h2>
+</div>
+
+<section @list class="product-list" [@.disabled]="disableAnimation()">
+  @for (product of products(); track product?.id) {
+  <app-product-item-list
+    @items
+    [productCart]="product"
+    (removeItem)="remove($event)"
+    (clickedView)="closeDialog()"
+  >
+    <app-cart-quantity-control
+      productQuantity
+      [productCart]="product"
+      (productCartChange)="changeQuantity($event)"
+      (removeProduct)="remove($event)"
+    />
+  </app-product-item-list>
+  } @empty {
+  <div class="flex flex-col gap-4 items-center justify-center py-4">
+    <p class="text-gray-500 text-2xl">Your cart is empty</p>
+    <button
+      appearance="secondary"
+      tuiButton
+      (click)="closeDialog()"
+      routerLink="/"
+    >
+      Explore More
+    </button>
+  </div>
+  }
+</section>
