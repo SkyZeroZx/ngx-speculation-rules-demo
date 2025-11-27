@@ -6,7 +6,6 @@ import { provideSpeculationRulesWithPrefetch } from '@/services/speculation-rule
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import {
   ApplicationConfig,
-  isDevMode,
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
 } from '@angular/core';
@@ -26,11 +25,12 @@ import { provideServiceWorker } from '@angular/service-worker';
 import { provideEventPlugins } from '@taiga-ui/event-plugins';
 
 import { routes } from './app.routes';
-import { RouterLink, RouterOutlet } from '@angular/router';
-
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    // Speculation Rules API - Automatic prefetching for better performance
+    // Uses 'moderate' eagerness to balance performance and resource usage
+    provideSpeculationRulesWithPrefetch('moderate'),
     provideAnimationsAsync(),
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
@@ -51,8 +51,5 @@ export const appConfig: ApplicationConfig = {
     provideContextService(),
     provideEventPlugins(),
     appInitialConfig,
-    // Speculation Rules API - Automatic prefetching for better performance
-    // Uses 'moderate' eagerness to balance performance and resource usage
-    provideSpeculationRulesWithPrefetch('moderate'),
   ],
 };

@@ -2,6 +2,7 @@ import {
   EnvironmentProviders,
   inject,
   makeEnvironmentProviders,
+  provideAppInitializer,
   Provider,
 } from '@angular/core';
 
@@ -20,7 +21,7 @@ import {
  * @returns Provider array for dependency injection
  *
  * @example
- * ```typescript
+ * ```ts
  * // In app.config.ts
  * export const appConfig: ApplicationConfig = {
  *   providers: [
@@ -54,13 +55,19 @@ export function provideSpeculationRules(
     });
   }
 
-  // Add service provider with platform detection
   providers.push({
     provide: SpeculationRulesService,
-    useFactory: () => inject(SpeculationRulesBrowserService),
+    useClass: SpeculationRulesBrowserService,
   });
 
-  return makeEnvironmentProviders(providers);
+  const initEagerService = () => {
+    inject(SpeculationRulesService);
+  };
+
+  return makeEnvironmentProviders([
+    providers,
+    provideAppInitializer(initEagerService),
+  ]);
 }
 
 /**
@@ -71,7 +78,7 @@ export function provideSpeculationRules(
  * @returns Provider array for dependency injection
  *
  * @example
- * ```typescript
+ * ```ts
  * // In app.config.ts
  * export const appConfig: ApplicationConfig = {
  *   providers: [
@@ -113,7 +120,7 @@ export function provideSpeculationRulesWithPrefetch(
  * @returns Provider array for dependency injection
  *
  * @example
- * ```typescript
+ * ```ts
  * // In app.config.ts
  * export const appConfig: ApplicationConfig = {
  *   providers: [

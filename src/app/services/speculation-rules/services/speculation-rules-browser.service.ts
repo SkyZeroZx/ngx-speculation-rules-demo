@@ -1,4 +1,10 @@
-import { DOCUMENT, inject, Injectable } from '@angular/core';
+import {
+  DOCUMENT,
+  inject,
+  Injectable,
+  isDevMode,
+  PLATFORM_ID,
+} from '@angular/core';
 
 import {
   SpeculationRules,
@@ -6,6 +12,7 @@ import {
   SpeculationSupport,
 } from '../interfaces';
 import { SPECULATION_RULES_CONFIG, SpeculationRulesService } from '../token';
+import { isPlatformBrowser } from '@angular/common';
 
 declare global {
   interface Document {
@@ -20,6 +27,7 @@ declare global {
 })
 export class SpeculationRulesBrowserService implements SpeculationRulesService {
   private readonly document = inject(DOCUMENT);
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   protected readonly config = inject(SPECULATION_RULES_CONFIG);
 
   // Track inserted script elements by ID
@@ -37,7 +45,10 @@ export class SpeculationRulesBrowserService implements SpeculationRulesService {
   readonly isPrerendering = this.document.prerendering;
 
   constructor() {
-    // Auto-insert default rules if configured
+    this.init();
+  }
+
+  private init() {
     if (this.config.autoInsert && this.config.defaultRules) {
       this.insertRules(this.config.defaultRules, 'default-rules');
     }
@@ -48,6 +59,9 @@ export class SpeculationRulesBrowserService implements SpeculationRulesService {
    */
   insertRules(rules: SpeculationRules, id?: string): string | null {
     if (!this.isSupported.supported) {
+      isDevMode() &&
+        this.isBrowser &&
+        console.warn('Speculation Rules API not supported in this browser.');
       return null;
     }
 
@@ -63,7 +77,7 @@ export class SpeculationRulesBrowserService implements SpeculationRulesService {
     script.id = scriptId;
     script.textContent = JSON.stringify(rules, null, 2);
 
-    this.document.head.appendChild(script);
+    this.document.body.appendChild(script);
     this.scriptElements.set(scriptId, script);
 
     return scriptId;
@@ -87,8 +101,10 @@ export class SpeculationRulesBrowserService implements SpeculationRulesService {
    * Remove all speculation rules
    */
   clearAllRules(): void {
-    const ids = Array.from(this.scriptElements.keys());
-    ids.forEach((id) => this.removeRules(id));
+    const scripts = this.scriptElements.keys();
+    for (const id of scripts) {
+      this.removeRules(id);
+    }
   }
 
   /**
