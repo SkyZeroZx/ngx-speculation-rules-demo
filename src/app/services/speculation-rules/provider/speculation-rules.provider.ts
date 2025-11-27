@@ -25,7 +25,6 @@ import {
  * export const appConfig: ApplicationConfig = {
  *   providers: [
  *     provideSpeculationRules({
- *       enabled: true,
  *       autoInsert: true,
  *       defaultRules: {
  *         prefetch: [{
@@ -85,7 +84,6 @@ export function provideSpeculationRulesWithPrefetch(
   eagerness: 'immediate' | 'eager' | 'moderate' | 'conservative' = 'moderate'
 ): EnvironmentProviders {
   return provideSpeculationRules({
-    enabled: true,
     autoInsert: true,
     defaultRules: {
       prefetch: [
@@ -132,7 +130,6 @@ export function provideSpeculationRulesWithPrerender(
     | 'conservative' = 'conservative'
 ): EnvironmentProviders {
   return provideSpeculationRules({
-    enabled: true,
     autoInsert: true,
     defaultRules: {
       prerender: [

@@ -1,16 +1,15 @@
 /**
  * Example integration of Speculation Rules Service
- * 
+ *
  * This file demonstrates different ways to integrate the Speculation Rules API
  * into your Angular application based on different use cases.
  */
 
 import { ApplicationConfig, isDevMode } from '@angular/core';
-import { 
+import {
   provideSpeculationRules,
   provideSpeculationRulesWithPrefetch,
-  provideSpeculationRulesWithPrerender,
-  SpeculationRules
+  SpeculationRules,
 } from '@/services/speculation-rules';
 
 // ============================================================================
@@ -19,9 +18,7 @@ import {
 export const basicConfig: ApplicationConfig = {
   providers: [
     provideSpeculationRules({
-      enabled: !isDevMode(), // Only in production
-      autoInsert: false,      // Manual control via service
-      debug: isDevMode(),     // Debug logs in development
+      autoInsert: false, // Manual control via service
     }),
   ],
 };
@@ -52,7 +49,7 @@ const blogSpeculationRules: SpeculationRules = {
           { not: { selector_matches: '[rel~=nofollow]' } },
         ],
       },
-    }  
+    },
   ],
   // Prerender only featured articles (conservative to save resources)
   prerender: [
@@ -62,17 +59,15 @@ const blogSpeculationRules: SpeculationRules = {
       where: {
         selector_matches: '.featured-article a',
       },
-    }  
+    },
   ],
 };
 
 export const blogConfig: ApplicationConfig = {
   providers: [
     provideSpeculationRules({
-      enabled: true,
       autoInsert: true,
       defaultRules: blogSpeculationRules,
-      debug: isDevMode(),
     }),
   ],
 };
@@ -105,7 +100,6 @@ const aggressivePrefetchRules: SpeculationRules = {
 export const spaLikeConfig: ApplicationConfig = {
   providers: [
     provideSpeculationRules({
-      enabled: true,
       autoInsert: true,
       defaultRules: aggressivePrefetchRules,
     }),
@@ -136,10 +130,8 @@ const twaSpeculationRules: SpeculationRules = {
 export const twaConfig: ApplicationConfig = {
   providers: [
     provideSpeculationRules({
-      enabled: true,
       autoInsert: true,
       defaultRules: twaSpeculationRules,
-      debug: false,
     }),
   ],
 };
@@ -153,9 +145,7 @@ export const adaptiveConfig: ApplicationConfig = {
     // Base configuration without auto-insert
     // The application will dynamically insert rules based on device type
     provideSpeculationRules({
-      enabled: true,
       autoInsert: false,
-      debug: isDevMode(),
     }),
   ],
 };
@@ -173,28 +163,28 @@ const productionSpeculationRules: SpeculationRules = {
         and: [
           // Only same-origin links
           { href_matches: '/*' },
-          
+
           // Exclude authentication & sensitive routes
           { not: { href_matches: '/logout' } },
           { not: { href_matches: '/login' } },
           { not: { href_matches: '/auth/*' } },
           { not: { href_matches: '/admin/*' } },
           { not: { href_matches: '/api/*' } },
-          
+
           // Exclude state-changing operations
           { not: { href_matches: '/*\\?*add-to-cart=*' } },
           { not: { href_matches: '/*\\?*remove-from-cart=*' } },
           { not: { href_matches: '/*\\?*checkout*' } },
-          
+
           // Exclude external and nofollow links
           { not: { selector_matches: '[rel~=nofollow]' } },
           { not: { selector_matches: '[rel~=external]' } },
           { not: { selector_matches: '[target=_blank]' } },
-          
+
           // Exclude custom markers
           { not: { selector_matches: '.no-speculation' } },
           { not: { selector_matches: '[data-no-prefetch]' } },
-          
+
           // Exclude downloads
           { not: { selector_matches: '[download]' } },
         ],
@@ -206,10 +196,8 @@ const productionSpeculationRules: SpeculationRules = {
 export const productionConfig: ApplicationConfig = {
   providers: [
     provideSpeculationRules({
-      enabled: !isDevMode(),
       autoInsert: true,
       defaultRules: productionSpeculationRules,
-      debug: false,
     }),
   ],
 };
@@ -219,12 +207,12 @@ export const productionConfig: ApplicationConfig = {
 // ============================================================================
 /**
  * To use any of these configurations, import and merge with your app config:
- * 
+ *
  * ```typescript
  * import { mergeApplicationConfig } from '@angular/core';
  * import { appConfig } from './app.config';
  * import { productionConfig } from './examples/speculation-rules.examples';
- * 
+ *
  * export const config = mergeApplicationConfig(appConfig, productionConfig);
  * ```
  */

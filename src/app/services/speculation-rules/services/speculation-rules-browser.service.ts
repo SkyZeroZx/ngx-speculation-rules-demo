@@ -47,10 +47,6 @@ export class SpeculationRulesBrowserService implements SpeculationRulesService {
    * Insert speculation rules into the document
    */
   insertRules(rules: SpeculationRules, id?: string): string | null {
-    if (!this.config.enabled) {
-      return null;
-    }
-
     if (!this.isSupported.supported) {
       return null;
     }

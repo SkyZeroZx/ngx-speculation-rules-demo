@@ -112,8 +112,6 @@ export interface SpeculationRules {
  * Service configuration options
  */
 export interface SpeculationRulesServiceConfig {
-  /** Enable/disable the service globally */
-  enabled?: boolean;
   /** Auto-insert rules on service initialization */
   autoInsert?: boolean;
   /** Default rules to apply */
