@@ -6,8 +6,9 @@
   [class.flex-col]="layout() === 'grid'"
 >
   <!-- Product Image Container -->
-  <div
-    class="relative aspect-square overflow-hidden bg-gray-50"
+  <a
+    [routerLink]="link()"
+    class="relative aspect-square overflow-hidden bg-gray-50 z-10"
     [class.w-full]="layout() === 'grid'"
     [class.shrink-0]="layout() === 'list'"
   >
@@ -82,7 +83,7 @@
         {{ stockStatus() }}
       </span>
     </div>
-  </div>
+  </a>
 
   <!-- Product Content -->
   <div

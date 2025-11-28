@@ -10,6 +10,7 @@ import {
   signal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { TuiButton, TuiIcon } from '@taiga-ui/core';
 
 @Component({
@@ -21,6 +22,7 @@ import { TuiButton, TuiIcon } from '@taiga-ui/core';
     TuiIcon,
     SlicePipe,
     TitleCasePipe,
+    RouterLink
   ],
   templateUrl: './product-web.component.html',
   styleUrls: ['./product-web.component.css'],
@@ -31,6 +33,8 @@ export class ProductWebComponent {
   readonly layout = input<'grid' | 'list'>('grid');
   readonly showQuickActions = input(true, { transform: booleanAttribute });
   readonly showDescription = input(true, { transform: booleanAttribute });
+
+  readonly link = computed(() => `/product/${this.product().id}`);
 
   // Outputs using signals
   readonly addToCart = output<ProductCard>();

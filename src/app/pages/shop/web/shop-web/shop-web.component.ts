@@ -3,13 +3,12 @@ import { NgxSkeletonLoaderComponent } from 'ngx-skeleton-loader';
 import { ProductWebComponent } from '@/shared/ui/product/web';
 import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { TuiButton } from '@taiga-ui/core';
 
 import { ShopBaseComponent } from '../../base/shop-base.component';
 import { CategoryFilterComponent } from './components/category-filter/category-filter.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { distinctUntilChanged, filter, startWith, tap } from 'rxjs';
+import { distinctUntilChanged } from 'rxjs';
 import { PAGINATION_DEFAULT } from '../../../../core/constants/pagination';
 
 @Component({
@@ -18,7 +17,6 @@ import { PAGINATION_DEFAULT } from '../../../../core/constants/pagination';
     ProductWebComponent,
     CategoryFilterComponent,
     NgTemplateOutlet,
-    RouterLink,
     TuiButton,
     NgxSkeletonLoaderComponent,
     ReactiveFormsModule,

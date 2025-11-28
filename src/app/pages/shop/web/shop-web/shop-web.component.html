@@ -61,8 +61,7 @@
             [style.view-transition-name]="`product-image-${item.id}`"
             [product]="item"
             layout="grid"
-            [routerLink]="['/product', item.id]"
-          />
+           />
           } } @if(listProducts.isLoading()) {
           <ng-container *ngTemplateOutlet="skeleton" />
           }
