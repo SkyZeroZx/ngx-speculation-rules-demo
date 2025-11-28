@@ -2,7 +2,7 @@ import { onViewTransitionCreated } from '@/core/animations';
 import { appInitialConfig } from '@/core/config/http-cache';
 import { swRegistrationOptions } from '@/core/config/service-worker';
 import { provideContextService } from '@/services/context';
-import { provideSpeculationRulesWithPrefetch } from '@/services/speculation-rules';
+import { provideSpeculationRulesWithPrefetch, provideSpeculationRulesWithPrerender } from '@/services/speculation-rules';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import {
   ApplicationConfig,
@@ -30,7 +30,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     // Speculation Rules API - Automatic prefetching for better performance
     // Uses 'moderate' eagerness to balance performance and resource usage
-    provideSpeculationRulesWithPrefetch('moderate'),
+    provideSpeculationRulesWithPrerender('moderate'),
     provideAnimationsAsync(),
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
