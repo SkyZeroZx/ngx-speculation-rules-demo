@@ -5,13 +5,11 @@
  * into your Angular application based on different use cases.
  */
 
-import { ApplicationConfig, isDevMode } from '@angular/core';
+import { ApplicationConfig } from '@angular/core';
 import {
   provideSpeculationRules,
-  provideSpeculationRulesWithPrefetch,
   SpeculationRules,
-} from '@/services/speculation-rules';
-
+} from 'ngx-speculation-rules';
 // ============================================================================
 // EXAMPLE 1: Basic Configuration (Manual Control)
 // ============================================================================
@@ -28,7 +26,26 @@ export const basicConfig: ApplicationConfig = {
 // ============================================================================
 export const ecommerceConfig: ApplicationConfig = {
   providers: [
-    provideSpeculationRulesWithPrefetch('moderate'),
+    provideSpeculationRules({
+      autoInsert: true,
+      defaultRules: {
+        prefetch: [
+          {
+            source: 'document',
+            eagerness: 'moderate',
+            where: {
+              and: [
+                { href_matches: '/*' },
+                { not: { href_matches: '/logout' } },
+                { not: { href_matches: '/*\\?*logout*' } },
+                { not: { selector_matches: '[rel~=nofollow]' } },
+                { not: { selector_matches: '.no-speculation' } },
+              ],
+            },
+          },
+        ],
+      },
+    }),
     // This automatically prefetches all internal links with moderate eagerness
     // Perfect for e-commerce sites where users browse many product pages
   ],
