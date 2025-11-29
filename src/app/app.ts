@@ -14,4 +14,8 @@ import { TuiRoot } from '@taiga-ui/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class App {}
+export class App {
+  constructor() {
+    console.log('App: Constructor executed');
+  }
+}

@@ -1,7 +1,6 @@
 import { onViewTransitionCreated } from '@/core/animations';
 import { appInitialConfig } from '@/core/config/http-cache';
 import { swRegistrationOptions } from '@/core/config/service-worker';
-import { provideContextService } from '@/services/context';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import {
   ApplicationConfig,
@@ -33,18 +32,12 @@ export const appConfig: ApplicationConfig = {
     provideSpeculationRules({
       autoInsert: true,
       defaultRules: {
-        prefetch: [
+        prerender: [
           {
             source: 'document',
-            eagerness: 'moderate',
+            eagerness: 'eager',
             where: {
-              and: [
-                { href_matches: '/*' },
-                { not: { href_matches: '/logout' } },
-                { not: { href_matches: '/*\\?*logout*' } },
-                { not: { selector_matches: '[rel~=nofollow]' } },
-                { not: { selector_matches: '.no-speculation' } },
-              ],
+              not: { selector_matches: '[data-render="false"]' },
             },
           },
         ],
@@ -67,7 +60,6 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withHttpTransferCacheOptions({}), withEventReplay()),
     provideServiceWorker('ngsw-worker.js', swRegistrationOptions),
     provideHttpClient(withFetch()),
-    provideContextService(),
     provideEventPlugins(),
     appInitialConfig,
   ],
