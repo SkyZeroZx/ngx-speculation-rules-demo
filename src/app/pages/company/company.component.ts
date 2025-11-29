@@ -8,11 +8,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
         <h2
           class="text-2xl font-semibold text-gray-700 mb-4 border-b-2 border-blue-500 pb-2"
         >
-          About ngx-speculation-rules
+          About Capybara
         </h2>
 
         <img 
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Capybara_%28Hydrochoerus_hydrochaeris%29.JPG/1280px-Capybara_%28Hydrochoerus_hydrochaeris%29.JPG" 
+          src="https://www.infobae.com/resizer/v2/4U2KUGDQCZFZZO5PTG4DOG6EEU.png?auth=f2ac2eb73f7a7a50c8509b69329f891d9d0c42f47d5bb0867228909ed65525f0&smart=true&width=992&height=1002&quality=85" 
           alt="Capybara" 
           class="w-full max-w-md mx-auto rounded-lg shadow-md mb-6"
         />
