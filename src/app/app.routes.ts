@@ -14,6 +14,14 @@ export const routes: Routes = [
           import('@/pages/shop/web/shop-web/shop-web.component'),
       },
       {
+        path: 'redirect',
+        redirectTo: 'about',
+      },
+      {
+        path: 'redirectDynamic',
+        redirectTo: () => 'company',
+      },
+      {
         path: 'about',
         title: 'About Speculation Rules',
         loadComponent: () => import('@/pages/about/about.component'),
